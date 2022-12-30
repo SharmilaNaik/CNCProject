@@ -3,12 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.ramee.CNC.HomePage">
+      <class name="com.ramee.CNC.Routeplanning">
         <methods>
           <include name="lounchBrowser"/>
-          <include name="login" invocation-numbers="0"/>
+          <include name="routeplan"/>
+          <include name="closeBrowser"/>
         </methods>
-      </class> <!-- com.ramee.CNC.HomePage -->
+      </class> <!-- com.ramee.CNC.Routeplanning -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

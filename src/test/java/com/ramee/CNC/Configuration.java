@@ -2,6 +2,7 @@ package com.ramee.CNC;
 
 import java.time.Duration;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -11,7 +12,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class Configuration {
 	WebDriver driver = null;
-	
+
 	@BeforeMethod
 	public void lounchBrowser() {
 		driver = new ChromeDriver();
