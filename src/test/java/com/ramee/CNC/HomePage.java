@@ -1,15 +1,21 @@
 package com.ramee.CNC;
 
+import java.time.Duration;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class HomePage extends Configuration{
+	
 	@Test(priority=1,dataProvider="LoginData")
-	public void login(String name, String pass) {
+	public void loginManager(String name, String pass) {
 		driver.get("https://qa-cnc.rameesystems.com/");
 		driver.findElement(By.xpath("//button[@class='btn dropdown-toggle']")).click();
 		driver.findElement(By.xpath("//input[@data-fv-field=\"identity\"]")).sendKeys(name);
@@ -21,7 +27,48 @@ public class HomePage extends Configuration{
 		Object [][] obj= {{"manager","12345678"}};
 		return obj;
 	}
-	 @Test(priority=2)
+	
+	
+	@Test(priority=2)
+	public void wrongPassword() throws InterruptedException {
+		driver.get("https://qa-cnc.rameesystems.com/");
+		driver.findElement(By.xpath("//button[@class='btn dropdown-toggle']")).click();
+		driver.findElement(By.xpath("//input[@data-fv-field=\"identity\"]")).sendKeys("manager");
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("1234567");
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[@class='btn btn-block btn-success']")).click();
+		String expectedMsg="Login Failed, Please try again";
+		String actualMsg =driver.findElement(By.xpath("//div[@class='swal2-content']")).getText();
+		if(actualMsg.equalsIgnoreCase(expectedMsg)) {
+			System.out.println("user login fail");
+		}else {
+			System.out.println("user login successfully");
+		}
+		driver.findElement(By.xpath("//button[@class='swal2-confirm swal2-styled']")).click();
+		
+	}
+	
+	@Test(priority=3)
+	public void wrongUserName() throws InterruptedException {
+		driver.get("https://qa-cnc.rameesystems.com/");
+		driver.findElement(By.xpath("//button[@class='btn dropdown-toggle']")).click();
+		driver.findElement(By.xpath("//input[@data-fv-field=\"identity\"]")).sendKeys("manag");
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("12345678");
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[@class='btn btn-block btn-success']")).click();
+		String expectedMsg="Login Failed, Please try again";
+		String actualMsg =driver.findElement(By.xpath("//div[@class='swal2-content']")).getText();
+		if(actualMsg.equalsIgnoreCase(expectedMsg)) {
+			System.out.println("user login fail");
+		}else {
+			System.out.println("user login successfully");
+		}
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[@class='swal2-confirm swal2-styled']")).click();
+		
+	}
+	
+	 @Test(priority=4)
 	public void homeFaceBook() throws InterruptedException {
 		driver.get("https://qa-cnc.rameesystems.com/");
 		driver.findElement(By.xpath("//a[contains(text(),'Home')]")).click();
@@ -35,7 +82,7 @@ public class HomePage extends Configuration{
 		 }
 
 	}
-	 @Test(priority=3)
+	 @Test(priority=5)
 	 public void homeTwitter() throws InterruptedException {
 		 driver.get("https://qa-cnc.rameesystems.com/");
 			driver.findElement(By.xpath("//a[contains(text(),'Home')]")).click();
@@ -49,7 +96,7 @@ public class HomePage extends Configuration{
 			 }
 
 	}
-	@Test(priority=4)
+	@Test(priority=6)
 	 public void productDetails() throws InterruptedException {
 		 driver.get("https://qa-cnc.rameesystems.com/");
 			driver.findElement(By.xpath("//a[contains(text(),'Products Details')]")).click();
@@ -70,7 +117,7 @@ public class HomePage extends Configuration{
 	}
 	
 	
-	 @Test(priority=5)
+	 @Test(priority=7)
 	 public void colourChange() throws InterruptedException {
 		 driver.get("https://qa-cnc.rameesystems.com/");
 		 Thread.sleep(6000);

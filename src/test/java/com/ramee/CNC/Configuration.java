@@ -1,8 +1,7 @@
 package com.ramee.CNC;
 
 import java.time.Duration;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
+
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,19 +12,19 @@ import org.testng.annotations.BeforeMethod;
 
 public class Configuration {
 	WebDriver driver = null;
-	//FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
-	FluentWait wait = new FluentWait(driver);
-	       
 
 	@BeforeMethod
 	public void lounchBrowser() {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
+		FluentWait<WebDriver> wait=new FluentWait<WebDriver>(driver);
+		wait.withTimeout(Duration.ofSeconds(60));
+		wait.pollingEvery(Duration.ofSeconds(1));
 	}
 
 	@AfterMethod
 	public void closeBrowser() {
-		driver.close();
+		//driver.close();
 
 	}
 
